@@ -4,7 +4,7 @@
 
 <p>The full-stack spatial web app (referred to as the Spatial Web App) will be the next iteration of the current Excel based spatial separation table used internally by GHL tech staff.  The purpose of this app will be to provide an improved user experience compared to the existing spatial separation table, as well as provide a platform for future expansion into a deployable software as a service (SaaS) product.</p>
 
-<p>The current Excel based spatial table does not have full create, read, update and delete (CRUD) functionality, and is not a user intuitive design. Users currently need to have a high level of technical knowledge to use the spatial table.  The table is not easily accessible to those without sound knowledge of Excel, in addition to extensive training on how to use the spreadsheet.  Inserting a new compartment calculation is not possible without unhiding rows and shifting down cells, making organizing the table difficult.  Deleting a row removes a 'link' to the interpolations table, which is not ideal.  Excel in general is ok for basic math calculations, but is not an ideal platform for dynamic add/delete operations that require CRUD operations.</p>
+<p>The current Excel based spatial table does not have create, read, update and delete (CRUD) functionality, and is not a user intuitive design. Users currently need to have a high level of technical knowledge to use the spatial table.  The table is not easy to use for those without sound knowledge of Excel, in addition to extensive training on how to use the spreadsheet.  Inserting a new compartment calculation is not possible without unhiding rows and shifting down cells, making organizing the table difficult.  Deleting a row removes a 'link' to the interpolations table, which is not ideal.  Excel in general is ok for basic math calculations, but is not an ideal platform for dynamic add/delete operations that require CRUD operations.</p>
 
 ## Features
 
@@ -30,13 +30,15 @@
 
 ### Database and Storage
 
-<p>It is understood that GHL follows OQM file management standards, and the current spatial table is stored in file explorer on the projects drive on a per project basis.  To continue meeting these requirements, the database for the internal version of the app will remain as the current file explorer structure with a .csv file for each project.  The .csv file will be read into the app and stored in memory as a JSON object.  The JSON object will be used to populate the table, and will be used to perform CRUD operations.  The JSON object will be written back to the .csv file when the user saves the table.</p> 
+<p>It is understood that GHL follows OQM file management standards, and the current spatial table is stored in file explorer on the projects drive on a per project basis.  To continue meeting these requirements, the database for the internal version of the app will remain as the current file explorer structure with a .csv file for each project.  The .csv file will be read into the app and stored in memory as a JSON object.  The JSON object will be used to populate the table, and will be used to perform CRUD operations.  The JSON object will be written back to the .csv file when the user saves the table.<p> 
 
 <p>For the future SaaS version of the app, the database will be migrated to a cloud based database service such as MongoDB Atlas.</p> 
 
 ### Testing
 
-Unit testing will be performed using a testing framework such as Jest to ensure the code is working as expected.  Integration testing will be performed to ensure the frontend and backend are working together as expected.  End to end testing will be performed to ensure the app is working as expected from a user perspective.
+<p>Testing is an important part of the development process, especially to ensure minimum maintenance after the summer.  Unit testing will be performed using Jest or a similar unit testing framework.  The testing framework will be used to test the algorithm, and to test the frontend components.  The testing framework will be used to test the algorithm by comparing to the results of the current Excel based spatial table.  The testing framework will be used to test the frontend components by testing the components with different inputs and ensuring the correct outputs are produced.</p> 
+
+<p>Integration testing will be performed to ensure the frontend and backend are working together as expected. End to end testing will be performed to ensure the app is working as expected from a user perspective.</p> 
 
 ## Technologies Used
 
@@ -55,7 +57,7 @@ I have high confidence that a working internal-use version of the app can be dev
 
 - Week 1 - 4: Setup development environment, create React app, UI Figma sketches, create basic frontend with filereader to read .csv file into app, review of existing javascript code, and begin writing new code in TypeScript
 
-- Week 4 - 8: Create basic CRUD functionality, create basic UI, create basic algorithm to calculate spatial separation, create basic print functionality, create basic database to store calculations, and begin testing
+- Week 4 - 8: Create basic CRUD functionality, create basic UI, create basic algorithm to calculate spatial separation, create basic print functionality, creat e basic database to store calculations, and begin testing
 
 - Week 8 - 12: Create import and export functionality, ccreate basic print functionality, create cloud database to store calculations, and begin testing
 

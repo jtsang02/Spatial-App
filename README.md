@@ -26,7 +26,7 @@
 
 ### Algorithm
 
-<p>The method used to calculate spatial separation will be the same as the current Excel based spatial table by looking up the applicable Building Code tables and bi-linearly interpolating values.  The [javascript code](https://github.com/jtsang02/spatial-calc-js/blob/main/src/compartment.js) developed two summers ago and shared with JDM will serve as a base.  This code will be rewritten in TypeScript for best design practices, and modified to work with the MERN stack.</p>
+<p>The method used to calculate spatial separation will be the same as the current Excel based spatial table by looking up the applicable Building Code tables and bi-linearly interpolating values.  The JavaScript code developed two summers ago and shared with JDM will serve as a base.  This code will be rewritten in TypeScript for best design practices, and modified to work with the MERN stack.</p>
 
 ### Database and Storage
 
@@ -51,7 +51,7 @@ Note that not all of the technologies used above will be used in the initial sta
 
 ## Timeline and Milestones
 
-I am confident that a working internal-use version of the app can be developed by the end of the summer, and that the architecture for an externally deployed app can be prepared for future progress and deployment.  The following is a rough timeline of the milestones that will be completed:
+I have high confidence that a working internal-use version of the app can be developed by the end of the summer, and that the architecture for an externally deployed app can be prepared for future progress and deployment.  The following is a rough timeline of the milestones that will be completed:
 
 - Week 1 - 4: Setup development environment, create React app, UI Figma sketches, create basic frontend with filereader to read .csv file into app, review of existing javascript code, and begin writing new code in TypeScript
 
@@ -61,7 +61,7 @@ I am confident that a working internal-use version of the app can be developed b
 
 - Week 12- 16: Create advanced UI, create advanced testing, create documentation, internal deployment, create documentation on next steps for SaaS version
 
-Updates to the principal(s) can be provided as frequently as desired, and will be provided at least once a week.
+Progress updates to the principal(s) can be provided as frequently as requested, and will be provided at least once a week.
 
 ## Time Spent
 

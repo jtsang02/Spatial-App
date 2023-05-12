@@ -24,7 +24,7 @@
 
 ### Algorithm
 
-<p>The method used to calculate spatial separation will be the same as the current Excel based spatial table by looking up the applicable Building Code tables and bi-linearly interpolating values.  The JavaScript code developed two summers ago and shared with JDM will serve as a base.  This code will be rewritten in TypeScript for best design practices, and modified to work with the MERN stack.</p>
+<p>The method used to calculate spatial separation will be the same as the current Excel based spatial table by looking up the applicable Building Code tables and bi-linearly interpolating values.  The JavaScript code developed two summers ago and shared with GHL will serve as a base.  This code will be rewritten in TypeScript for best design practices, and modified to work with the MERN stack.</p>
 
 ### Database and Storage
 
@@ -63,7 +63,3 @@ I have high confidence that a working internal-use version of the app can be dev
 | 12 - 16 | Setup user authentication for SaaS version, advanced testing, write documentation, internal deployment, end to end testing, write documentation on next steps for SaaS version |
 
 Progress updates to the principal(s) will be provided as frequently as requested.
-
-## Time Spent
-
-An anticipated allowance of 30 hours per week will be needed on this project over the course of the summer.  This includes time spent on design, development, testing, documentation, and progress updates as described above.

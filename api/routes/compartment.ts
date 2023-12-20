@@ -1,10 +1,14 @@
+import Compartment from "../calculation/Compartment";
+
 const express = require('express');
 const router = express.Router();
 
 // get request to retrieve data from a compartment
 router.get('/', async(req: any, res: any) => {
-    try {
-        res.send('Hello from compartment.ts');
+    try {  
+        let compartment = new Compartment(10, 5, 5, 14, false, "E");
+        let unprotectedOpenings = compartment.unprotectedOpenings;
+        res.status(200).json({ unprotectedOpenings });
     } catch (error) {
         console.error(error);
     }

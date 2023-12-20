@@ -5,10 +5,15 @@ const router = express.Router();
 
 // get request to retrieve data from a compartment
 router.get('/', async(req: any, res: any) => {
-    try {  
-        let compartment = new Compartment(10, 5, 5, 14, false, "E");
+    try {
+        // destructuring the request body
+        const { h, w, LD, actOpns, sprk, group } = req.body;
+        let compartment = new Compartment(h, w, LD, actOpns, sprk, group);
         let unprotectedOpenings = compartment.unprotectedOpenings;
-        res.status(200).json({ unprotectedOpenings });
+        let frr = compartment.frr;
+        let construction = compartment.construction;
+        let cladding = compartment.cladding;
+        res.status(200).json({ unprotectedOpenings, frr, construction, cladding });
     } catch (error) {
         console.error(error);
     }

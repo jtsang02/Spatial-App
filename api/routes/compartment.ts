@@ -9,11 +9,12 @@ router.get('/', async(req: any, res: any) => {
         // destructuring the request body
         const { h, w, LD, actOpns, sprk, group } = req.body;
         let compartment = new Compartment(h, w, LD, actOpns, sprk, group);
+        let actualOpenings = compartment.areaOfOpenings;
         let unprotectedOpenings = compartment.unprotectedOpenings;
         let frr = compartment.frr;
         let construction = compartment.construction;
         let cladding = compartment.cladding;
-        res.status(200).json({ unprotectedOpenings, frr, construction, cladding });
+        res.status(200).json({ actualOpenings, unprotectedOpenings, frr, construction, cladding });
     } catch (error) {
         console.error(error);
     }

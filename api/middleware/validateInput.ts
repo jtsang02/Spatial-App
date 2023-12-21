@@ -14,7 +14,7 @@ const inputParamsSchema = {
         sprk: { type: "boolean" },
         group: { type: "string" }
     },
-    required: ["h", "w", "LD", "actOpns", "sprk", "group"],
+    required: ["h", "w", "LD", "sprk", "group"],
     additionalProperties: false
 };
 

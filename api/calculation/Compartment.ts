@@ -214,11 +214,3 @@ class Compartment {
 }
 
 export default Compartment;
-
-
-// Example usage
-// const compartment = new Compartment(10, 5, 2, 30, true, "E");
-// console.log(compartment.unprotectedOpenings);
-// console.log(compartment.frr);
-// console.log(compartment.construction);
-// console.log(compartment.cladding);

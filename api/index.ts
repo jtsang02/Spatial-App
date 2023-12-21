@@ -23,7 +23,7 @@ app.use(express.json());
 
 // Routes
 const compartment = require('./routes/compartment');
-app.use('/compartment', compartment);  
+app.use('/calculate', compartment);  
 
 // Start the server
 app.listen(9000, () => {

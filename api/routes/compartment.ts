@@ -14,8 +14,8 @@ router.post('/', validateInputParams, async(req: Request, res: Response) => {
         // create a compartment object
         let compartment = new Compartment(h, w, LD, actOpns, sprk, group);
         let resObj = {
-            actualOpenings: compartment.areaOfOpenings,
-            unprotectedOpenings: compartment.unprotectedOpenings,
+            actualOpenings: compartment.areaOfOpenings.toFixed(2),
+            unprotectedOpenings: compartment.unprotectedOpenings.toFixed(2),
             frr: compartment.frr,
             construction: compartment.construction,
             cladding: compartment.cladding

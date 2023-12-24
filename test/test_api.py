@@ -1,6 +1,7 @@
 import requests
 
 ENDPOINT = "http://localhost:9000"
+ENDPOINT_CALCULATE = "http://localhost:9000/calculate"
 
 # test that the endpoint is up and running
 def test_can_call_endpoint():
@@ -9,15 +10,8 @@ def test_can_call_endpoint():
 
 # test that the endpoint returns the correct data when all required data is provided
 def test_can_calculate():
-    payload = {    
-        'h' : 4,
-        'w' :  3,
-        'LD' : 4.23,
-        'actOpns' : 7,
-        'sprk' : True,
-        'group' : 'F-2'
-        }
-    response = requests.post(ENDPOINT + "/calculate", json=payload)
+    payload = new_payload(4, 3, 4.23, 7, True, 'F-2')
+    response = requests.post(ENDPOINT_CALCULATE, json=payload)
     data = response.json()
     assert response.status_code == 200
     assert data == {
@@ -30,14 +24,8 @@ def test_can_calculate():
 
 # when missing non required data, numbers are calculated with defaults
 def test_can_calculate_with_missing_data():
-    payload = {    
-        'h' : 4,
-        'w' :  3,
-        'LD' : 4.23,
-        'sprk' : True,
-        'group' : 'F-2'
-        }
-    response = requests.post(ENDPOINT + "/calculate", json=payload)
+    payload = new_payload(4, 3, 4.23, 0, True, 'F-2')
+    response = requests.post(ENDPOINT_CALCULATE, json=payload)
     data = response.json()
     assert response.status_code == 200
     assert data == {
@@ -50,15 +38,8 @@ def test_can_calculate_with_missing_data():
 
 # when limiting distance is less than 1.2 m, no openings are permitted
 def test_no_openings_permitted():
-    payload = {    
-        'h' : 4,
-        'w' :  3,
-        'LD' : 1.1,
-        'actOpns' : 0,
-        'sprk' : True,
-        'group' : 'C'
-        }
-    response = requests.post(ENDPOINT + "/calculate", json=payload)
+    payload = new_payload(4, 3, 1.1, 0, True, 'C')
+    response = requests.post(ENDPOINT_CALCULATE, json=payload)
     data = response.json()
     assert response.status_code == 200
     assert data == {
@@ -70,15 +51,8 @@ def test_no_openings_permitted():
     }
 
 def test_min_openings_permitted():
-    payload = {    
-        'h' : 3,
-        'w' :  4,
-        'LD' : 1.2,
-        'actOpns' : 0,
-        'sprk' : False,
-        'group' : 'E'
-        }
-    response = requests.post(ENDPOINT + "/calculate", json=payload)
+    payload = new_payload(3, 4, 1.2, 0, False, 'E')
+    response = requests.post(ENDPOINT_CALCULATE, json=payload)
     data = response.json()
     assert response.status_code == 200
     assert data == {
@@ -88,5 +62,18 @@ def test_min_openings_permitted():
         'construction': 'Noncombustible',
         'cladding': 'Noncombustible'
     }
-    
+
+############################ Helper Functions ############################
+
+# helper function to create a new task payload
+def new_payload(h, w, ld, act_opns, sprk, group):
+    return {
+        'h' : h,
+        'w' :  w,
+        'LD' : ld,
+        'actOpns' : act_opns,
+        'sprk' : sprk,
+        'group' : group
+    }
+
 # run command python -m pytest -vv

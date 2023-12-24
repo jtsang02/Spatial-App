@@ -151,14 +151,14 @@ let tableE: number[][] = [
 
 let constructionTable: string[][] = [
   ["1 h", "Noncombustible", "Noncombustible"],
-  ["1 h", "Combustible/EMT/Noncombustible", "Noncombustible"],
-  ["45 min", "Combustible/EMT/Noncombustible", "Noncombustible"],
-  ["45 min", "Combustible/EMT/Noncombustible", "Combustible/Noncombustible"],
+  ["1 h", "Combustible /EMT / Noncombustible", "Noncombustible"],
+  ["45 min", "Combustible / EMT / Noncombustible", "Noncombustible"],
+  ["45 min", "Combustible / EMT / Noncombustible", "Combustible / Noncombustible"],
 
   ["2 h", "Noncombustible", "Noncombustible"],
-  ["2 h", "Combustible/EMT/Noncombustible", "Noncombustible"],
-  ["1 h", "Combustible/EMT/Noncombustible", "Noncombustible"],
-  ["1 h", "Combustible/EMT/Noncombustible", "Combustible/Noncombustible"],
+  ["2 h", "Combustible / EMT / Noncombustible", "Noncombustible"],
+  ["1 h", "Combustible / EMT / Noncombustible", "Noncombustible"],
+  ["1 h", "Combustible / EMT / Noncombustible", "Combustible / Noncombustible"],
 ];
 
 export {tableB, tableC, tableD, tableE, constructionTable};

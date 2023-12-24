@@ -22,6 +22,9 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+const main = require('./routes/main');
+app.use('/', main);
+
 const compartment = require('./routes/compartment');
 app.use('/calculate', compartment);  
 

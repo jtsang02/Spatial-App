@@ -69,4 +69,4 @@ def test_no_openings_permitted():
         'cladding': 'Noncombustible'
     }
     
-# run command python -m pytest
+# run command python -m pytest -vv

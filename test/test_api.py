@@ -37,7 +37,7 @@ def test_can_calculate_with_missing_data():
         'sprk' : True,
         'group' : 'F-2'
         }
-    response = requests.post(ENDPOINT + '/calculate', json=payload)
+    response = requests.post(ENDPOINT + "/calculate", json=payload)
     data = response.json()
     assert response.status_code == 200
     assert data == {
@@ -58,13 +58,33 @@ def test_no_openings_permitted():
         'sprk' : True,
         'group' : 'C'
         }
-    response = requests.post(ENDPOINT + '/calculate', json=payload)
+    response = requests.post(ENDPOINT + "/calculate", json=payload)
     data = response.json()
     assert response.status_code == 200
     assert data == {
         'actualOpenings': '0.00',
         'unprotectedOpenings': '0.00',
         'frr': '1 h',
+        'construction': 'Noncombustible',
+        'cladding': 'Noncombustible'
+    }
+
+def test_min_openings_permitted():
+    payload = {    
+        'h' : 3,
+        'w' :  4,
+        'LD' : 1.2,
+        'actOpns' : 0,
+        'sprk' : False,
+        'group' : 'E'
+        }
+    response = requests.post(ENDPOINT + "/calculate", json=payload)
+    data = response.json()
+    assert response.status_code == 200
+    assert data == {
+        'actualOpenings': '0.00',
+        'unprotectedOpenings': '4.00',
+        'frr': '2 h',
         'construction': 'Noncombustible',
         'cladding': 'Noncombustible'
     }

@@ -192,15 +192,17 @@ class Compartment {
 
     if (this.unprotectedOpenings >= 100) {
       return "None";
+      
     } else {
-      const limits = [10, 25, 50, 100];
-      const isAreaLarger = (areaLimit: number) => this.unprotectedOpenings <= areaLimit;
-      const i = limits.findIndex(isAreaLarger);
+        const limits = [10, 25, 50, 100];
+        const isAreaLarger = (areaLimit: number) => this.unprotectedOpenings <= areaLimit;
+        const i = limits.findIndex(isAreaLarger);
 
       if (this.hazard) {
         return constructionTable[i + 4][columnIndex];
+
       } else {
-        return constructionTable[i][columnIndex];
+          return constructionTable[i][columnIndex];
       }
     }
   }

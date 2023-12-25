@@ -1,4 +1,5 @@
 import Compartment from "../calculation/Compartment";
+import roundNum from "../calculation/roundNum";
 import { Request, Response } from "express"; // Import the express types
 import validateInputParams from "../middleware/validateInput";
 
@@ -14,8 +15,8 @@ router.post('/', validateInputParams, async(req: Request, res: Response) => {
         // create a compartment object
         let compartment = new Compartment(h, w, LD, actOpns, sprk, group);
         let resObj = {
-            actualOpenings: compartment.areaOfOpenings.toFixed(2),
-            unprotectedOpenings: compartment.unprotectedOpenings.toFixed(2),
+            actualOpenings: roundNum(compartment.areaOfOpenings, 2),
+            unprotectedOpenings: roundNum(compartment.unprotectedOpenings, 2),
             frr: compartment.frr,
             construction: compartment.construction,
             cladding: compartment.cladding

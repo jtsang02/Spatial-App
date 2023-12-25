@@ -27,7 +27,13 @@ class Compartment {
   public sprk: boolean;
   public group: string;
 
-  public constructor(h: number, w: number, LD: number, actOpns: number, sprk: boolean, group: string) {
+  public constructor(
+        h: number,
+        w: number,
+        LD: number,
+        actOpns: number,
+        sprk: boolean,
+        group: string) {
     this.h = h;
     this.w = w;
     this.LD = LD;

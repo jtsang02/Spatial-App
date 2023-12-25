@@ -13,7 +13,7 @@ router.post('/', validateInputParams, async(req: Request, res: Response) => {
         const { h, w, LD, actOpns, sprk, group } = req.body;
 
         // create a compartment object
-        let compartment = new Compartment(h, w, LD, actOpns, sprk, group);
+        let compartment = new Compartment(h, w, LD, actOpns, sprk, group);        
         let resObj = {
             actualOpenings: roundNum(compartment.areaOfOpenings, 2),
             unprotectedOpenings: roundNum(compartment.unprotectedOpenings, 2),
@@ -26,23 +26,5 @@ router.post('/', validateInputParams, async(req: Request, res: Response) => {
         console.error(error);
     }
 });
-
-// put request to update a compartment
-// router.put('/', async(req: any, res: any) => {
-//     try {
-//         res.send('update a compartment');
-//     } catch (error) {
-//         console.error(error);
-//     }
-// });
-
-// delete request to delete a compartment
-// router.delete('/', async(req: any, res: any) => {
-//     try {
-//         res.send('delete a compartment ');
-//     } catch (error) {
-//         console.error(error);
-//     }
-// });
 
 module.exports = router;

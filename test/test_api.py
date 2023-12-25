@@ -50,6 +50,7 @@ def test_no_openings_permitted():
         'cladding': 'Noncombustible'
     }
 
+# when limiting distance is 1.2 m, minimum openings are permitted
 def test_min_openings_permitted():
     payload = new_payload(3, 4, 1.2, 0, False, 'E')
     response = requests.post(ENDPOINT_CALCULATE, json=payload)
@@ -61,6 +62,22 @@ def test_min_openings_permitted():
         'frr': '2 h',
         'construction': 'Noncombustible',
         'cladding': 'Noncombustible'
+    }
+
+# test when area is 0 m2, error code 400 is returned
+def test_zero_area():
+    payload = new_payload(0, 0, 1.2, 0, False, 'E')
+    response = requests.post(ENDPOINT_CALCULATE, json=payload)
+    assert response.status_code == 400
+
+# test that the endpoint returns an error when invalid data is provided
+def test_invalid_payload():
+    payload = new_payload('a', 3, 4.23, 7, True, 'F-2')
+    response = requests.post(ENDPOINT_CALCULATE, json=payload)
+    data = response.json()
+    assert response.status_code == 400
+    assert data == {
+        'errors': ['must be number']
     }
 
 ############################ Helper Functions ############################

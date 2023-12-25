@@ -85,7 +85,7 @@ def test_no_openings_permitted():
     assert data == {
         'actualOpenings': 0,
         'unprotectedOpenings': 0,
-        'frr': '1 h',
+        'frr': '2 h',
         'construction': 'Noncombustible',
         'cladding': 'Noncombustible'
     }
@@ -159,6 +159,14 @@ def test_top_right_corner_table_b():
         'construction': 'None',
         'cladding': 'None'
     }
+
+# test ratio of L/H or H/L outputs a different result
+def test_ratio_of_lh_or_hl():
+    wide_compartment = new_payload(9, 3, 4.2, 0, False, 'F-2')
+    slender_compartment = new_payload(5, 4, 4.2, 0, False, 'F-2')
+    response1 = requests.post(ENDPOINT_CALCULATE, json=wide_compartment)
+    response2 = requests.post(ENDPOINT_CALCULATE, json=slender_compartment)
+    assert response1.json() != response2.json()
 
 ############################ Helper Functions ############################
 

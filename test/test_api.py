@@ -78,7 +78,7 @@ def test_zero_area():
 
 # when limiting distance is less than 1.2 m, no openings are permitted
 def test_no_openings_permitted():
-    payload = new_payload(4, 3, 1.1, 0, True, 'C')
+    payload = new_payload(4, 3, 1.1, 0, True, 'E')
     response = requests.post(ENDPOINT_CALCULATE, json=payload)
     data = response.json()
     assert response.status_code == 200
@@ -130,6 +130,20 @@ def test_bottom_right_corner_table_b():
         'frr': 'None',
         'construction': 'None',
         'cladding': 'None'
+    }
+
+# test small area, unsprinklered, min LD
+def test_top_left_corner_table_b():
+    payload = new_payload(2, 4, 1.1, 0, False, 'C')
+    response = requests.post(ENDPOINT_CALCULATE, json=payload)
+    data = response.json()
+    assert response.status_code == 200
+    assert data == {
+        'actualOpenings': 0,
+        'unprotectedOpenings': 0,
+        'frr': '1 h',
+        'construction': 'Noncombustible',
+        'cladding': 'Noncombustible'
     }
 
 # test small area, unsprinklered, max LD

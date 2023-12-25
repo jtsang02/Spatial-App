@@ -15,8 +15,8 @@ def test_can_calculate():
     data = response.json()
     assert response.status_code == 200
     assert data == {
-        'actualOpenings': '58.33',
-        'unprotectedOpenings': '88.30',
+        'actualOpenings': 58.33,
+        'unprotectedOpenings': 88.3,
         'frr': '1 h',
         'construction': 'Combustible / EMT / Noncombustible',
         'cladding': 'Combustible / Noncombustible'
@@ -29,8 +29,8 @@ def test_can_calculate_with_missing_data():
     data = response.json()
     assert response.status_code == 200
     assert data == {
-        'actualOpenings': '0.00',
-        'unprotectedOpenings': '88.30',
+        'actualOpenings': 0,
+        'unprotectedOpenings': 88.3,
         'frr': '1 h',
         'construction': 'Combustible / EMT / Noncombustible',
         'cladding': 'Combustible / Noncombustible'
@@ -43,8 +43,8 @@ def test_no_openings_permitted():
     data = response.json()
     assert response.status_code == 200
     assert data == {
-        'actualOpenings': '0.00',
-        'unprotectedOpenings': '0.00',
+        'actualOpenings': 0,
+        'unprotectedOpenings': 0,
         'frr': '1 h',
         'construction': 'Noncombustible',
         'cladding': 'Noncombustible'
@@ -56,8 +56,8 @@ def test_min_openings_permitted():
     data = response.json()
     assert response.status_code == 200
     assert data == {
-        'actualOpenings': '0.00',
-        'unprotectedOpenings': '4.00',
+        'actualOpenings': 0,
+        'unprotectedOpenings': 4,
         'frr': '2 h',
         'construction': 'Noncombustible',
         'cladding': 'Noncombustible'

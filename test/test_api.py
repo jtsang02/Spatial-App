@@ -54,24 +54,44 @@ def test_invalid_payload():
         'errors': ['must be number']
     }
 
-# test when actual openings is greater than unprotected openings, error code 400 is returned
-def test_actual_openings_greater_than_unprotected_openings():
-    payload = new_payload(2, 4, 1.1, 10, True, 'F-2')
-    response = requests.post(ENDPOINT_CALCULATE, json=payload)
-    data = response.json()
-    assert response.status_code == 400
-    assert data == {
-        'errors': ['actual openings must be less than or equal to unprotected openings']
-    }
-
-# test when area is 0 m2, error code 400 is returned
+# test when width and height is 0, error code 400 is returned
 def test_zero_area():
     payload = new_payload(0, 0, 1.2, 0, False, 'E')
     response = requests.post(ENDPOINT_CALCULATE, json=payload)
     data = response.json()
     assert response.status_code == 400
     assert data == {
-        'errors': ['area must be greater than 0']
+        'errors': ['Height and width must be greater than zero.']
+    }
+
+# test when height is 0, error code 400 is returned
+def test_zero_height():
+    payload = new_payload(0, 4, 1.2, 0, False, 'E')
+    response = requests.post(ENDPOINT_CALCULATE, json=payload)
+    data = response.json()
+    assert response.status_code == 400
+    assert data == {
+        'errors': ['Height must be greater than zero.']
+    }
+
+# test when width is 0, error code 400 is returned
+def test_zero_width():
+    payload = new_payload(4, 0, 1.2, 0, False, 'E')
+    response = requests.post(ENDPOINT_CALCULATE, json=payload)
+    data = response.json()
+    assert response.status_code == 400
+    assert data == {
+        'errors': ['Width must be greater than zero.']
+    }
+
+# test when actual openings is greater than area, error code 400 is returned
+def test_actual_openings_greater_than_unprotected_openings():
+    payload = new_payload(2, 4, 1.1, 10, True, 'F-2')
+    response = requests.post(ENDPOINT_CALCULATE, json=payload)
+    data = response.json()
+    assert response.status_code == 400
+    assert data == {
+        'errors': ['Actual openings cannot be greater than the area.']
     }
 
 ############################ Tests to check calculations ############################

@@ -29,6 +29,6 @@ const compartment = require('./routes/compartment');
 app.use('/calculate', compartment);  
 
 // Start the server
-app.listen(9000, () => {
-    console.log('The application is listening on http://localhost:9000');
+app.listen(3000, () => {
+    console.log('The application is listening on http://localhost:3000');
 });

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import calcLogo from '../assets/calcLogo.svg'
 import tableLogo from '../assets/tableLogo.svg'
 import { Link } from 'react-router-dom'
+import '../App.css'
 
 const Home: React.FC = () => {
   const [count, setCount] = useState(0)

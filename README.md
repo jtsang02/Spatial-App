@@ -37,7 +37,7 @@ This runs the app in the development mode. Open [http://localhost:9000](http://l
 
 The API is hosted on an AWS EC2 instance. The base URL is:
     
-    ```http://ec2-3-134-88-136.us-east-2.compute.amazonaws.com:3000/```
+```http://ec2-3-134-88-136.us-east-2.compute.amazonaws.com:3000/```
 
 Here are some example API calls:
 

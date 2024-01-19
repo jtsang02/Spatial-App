@@ -63,7 +63,9 @@ const About: React.FC = () => {
 
                     <p className="mt-4">
                         <Link to="/">
-                            Back to home
+                            <button>
+                                Back to Home
+                            </button>
                         </Link>
                     </p>
                 </div>

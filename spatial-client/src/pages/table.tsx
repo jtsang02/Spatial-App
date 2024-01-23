@@ -84,15 +84,14 @@ const Table: React.FC = () => {
     return {
         filter: true,
         editable: true,
+        sortable: false,
     };
     }, []);
 
     // Container: Defines the grid's theme & dimensions.
     return (
     <div
-        className={
-        "ag-theme-quartz-auto-dark"
-        }
+        className={"ag-theme-quartz-auto-dark"}
         style={{ width: '100%', height: '100%' }}
     >
         {/* The AG Grid component, with Row Data & Column Definition props */}

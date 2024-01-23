@@ -7,7 +7,7 @@ const Home: React.FC = () => {
 
   return (
     <div className='flex h-full'>
-      <div className='m-auto'>
+      <div className='m-auto text-center'>
         <div className='inline-grid grid-cols-2'>
           <a href='https://jtsang02.github.io/spatial-calc-js/calculator.html'>
             <img src={calcLogo} className="logo calculator" />

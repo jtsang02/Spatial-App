@@ -52,6 +52,7 @@ const Table: React.FC = () => {
     {
         field: 'mission',
         filter: true,
+        rowDrag: true,
     },
     {
         field: 'company',
@@ -99,7 +100,8 @@ const Table: React.FC = () => {
         rowData={rowData}
         columnDefs={colDefs}
         defaultColDef={defaultColDef}
-        pagination={true}
+        rowDragManaged={true}
+        pagination={false}
         onCellValueChanged={(event) =>
             console.log(`New Cell Value: ${event.value}`)
         }

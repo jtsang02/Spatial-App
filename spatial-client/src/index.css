@@ -18,10 +18,10 @@
 }
 
 body {
-  margin: 0;
   display: flex;
-  min-width: 320px;
   min-height: 100vh;
+  min-width: auto;
+  width: 100%;
 }
 
 /* all buttons are like this unless otherwise defined */

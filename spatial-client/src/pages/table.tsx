@@ -110,8 +110,14 @@ const Table: React.FC = () => {
     },
     {
       field: 'sprinklered',
-      checkboxSelection: true,
-      cellStyle: { display: 'flex', justifyContent: 'center' },
+      cellEditorSelector: () => {
+        return {
+          component: 'agSelectCellEditor',
+          params: {
+            values: ['', 'Yes', 'No'],
+          },
+        };
+      },
       editable: true,
     },
     {

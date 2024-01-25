@@ -3,25 +3,26 @@ import "ag-grid-community/styles/ag-grid.css"; // Core CSS
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Theme
 import "ag-grid-community/styles/ag-theme-balham.css"; // Secondary Theme
 import RowData from '../models/rowData';
-import { ColDef } from 'ag-grid-community';
-import { useState, useEffect, useMemo } from 'react';
+import { ColDef, CellValueChangedEvent, RowValueChangedEvent } from 'ag-grid-community';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 
 const BLANKROWS = 22;
 const defaultBlankRows: RowData[] = Array.from({ length: BLANKROWS }, (_, index) => ({
-    id: `blank-${index + 1}`,
-    compartment: `Compartment ${index + 1}`,    
-  }));
+  id: `cmpt-${index + 1}`,
+  compartment: `Compartment ${index + 1}`,
+}));
+
 
 const valueFormatterPercentage = (param: { value: number; }) => {
-    if (param.value) {
-      return param.value.toLocaleString() + '%';
-    } else {
-      return '';
-    }
-  };
+  if (param.value) {
+    return param.value.toLocaleString() + '%';
+  } else {
+    return '';
+  }
+};
 
 const Table: React.FC = () => {
-
+  
   const [rowData, setRowData] = useState<RowData[]>(defaultBlankRows);
 
   // Column Definitions: Defines & controls grid columns.
@@ -37,30 +38,42 @@ const Table: React.FC = () => {
       field: 'face',
       filter: true,
       editable: true,
-      width: 80,
       cellEditorSelector: () => {
-          return {
-            component: 'agSelectCellEditor',
-            params: {
-              values: ['', 'North', 'East', 'South', 'West'],
-            },
-          };
+        return {
+          component: 'agSelectCellEditor',
+          params: {
+            values: ['', 'North', 'East', 'South', 'West'],
+          },
+        };
       },
+      width: 80,
     },
     {
       field: 'height (m)',
       colId: 'h',
       editable: true,
+      cellEditor: 'agNumberCellEditor',
+      cellEditorParams: {
+        min: 0.0001,
+      },
     },
     {
       field: 'width (m)',
       colId: 'w',
       editable: true,
+      cellEditor: 'agNumberCellEditor',
+      cellEditorParams: {
+        min: 0.0001,
+      },
     },
     {
       field: 'LD (m)',
       colId: 'LD',
       editable: true,
+      cellEditor: 'agNumberCellEditor',
+      cellEditorParams: {
+        min: 0,
+      },
     },
     {
       field: 'area (m²)',
@@ -90,11 +103,16 @@ const Table: React.FC = () => {
       colId: 'unprotectedOpenings',
       editable: true,
       width: 210,
+      cellEditor: 'agNumberCellEditor',
+      cellEditorParams: {
+        min: 0,
+      },
     },
     {
       field: 'sprinklered',
       checkboxSelection: true,
       cellStyle: { display: 'flex', justifyContent: 'center' },
+      editable: true,
     },
     {
       field: 'actual Openings',
@@ -102,16 +120,17 @@ const Table: React.FC = () => {
       valueFormatter: valueFormatterPercentage,
       width: 150,
     },
-    { field: 'Openings Permitted',
+    {
+      field: 'Openings Permitted',
       colId: 'opnsPermitted',
       valueFormatter: valueFormatterPercentage,
       width: 175,
     },
-    { 
+    {
       field: 'construction',
       width: 150,
-    },    
-    { 
+    },
+    {
       field: 'cladding',
       width: 150,
     },
@@ -132,26 +151,33 @@ const Table: React.FC = () => {
     };
   }, []);
 
+  const onCellValueChanged = useCallback((e: CellValueChangedEvent) => {
+    // Update rowData state with new data
+    console.log('onCellValueChanged: ' + e.colDef.field + ' = ' + e.newValue
+    );
+  }, []);
+
+  const onRowValueChanged = useCallback((e: RowValueChangedEvent) => {
+    const data = e.data;
+    // Update rowData state with new data
+    console.log('onRowValueChanged: ' + JSON.stringify(data));
+  }, []);
+
   // Container: Defines the grid's theme & dimensions.
   return (
     <div
       className={"ag-theme-quartz-auto-dark"}
       style={{ width: '100%', height: '100%' }}
     >
-      {/* The AG Grid component, with Row Data & Column Definition props */}
       <AgGridReact
         rowData={rowData}
         columnDefs={colDefs}
         defaultColDef={defaultColDef}
         rowDragManaged={true}
         pagination={false}
-        gridOptions={{
-          domLayout: 'autoHeight',
-        }}
-        onCellValueChanged={(event) =>
-          // Update rowData state with new data
-          setRowData([...rowData, event.data])
-        }
+        editType='fullRow'
+        onCellValueChanged={onCellValueChanged}
+        onRowValueChanged={onRowValueChanged}
       />
     </div>
   );

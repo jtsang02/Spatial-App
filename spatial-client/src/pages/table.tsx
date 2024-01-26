@@ -26,9 +26,6 @@ const Table: React.FC = () => {
       rowDrag: true,
       editable: true,
       width: 200,
-      onCellValueChanged(event) {
-        console.log('onCellValueChanged: ' + event.data.compartment);
-      },
     },
     {
       field: 'face',
@@ -103,7 +100,7 @@ const Table: React.FC = () => {
           return null;
         } else {
           return (Math.max(params.data.height, params.data.width) /
-            Math.min(params.data.height, params.data.width)).toFixed(1);
+            Math.min(params.data.height, params.data.width)).toFixed(2);
         }
       },
       editable: false,
@@ -137,13 +134,13 @@ const Table: React.FC = () => {
       headerName: 'Actual Openings',
       valueFormatter: valueFormatterPercentage,
       valueGetter: (params) => {
-        if (!params.data.actOpns || !params.data.area) {
+        if (!params.data.actOpns || !params.data.height || !params.data.width) {
           return null;
         } else {
-          return (params.data.actOpns / params.data.area * 100).toFixed(2);
+          return (params.data.actOpns / (params.data.height * params.data.width) * 100).toFixed(2);
         }
       },
-      width: 150,
+      width: 200,
     },
     {
       field: 'unprotectedOpenings',
@@ -188,11 +185,13 @@ const Table: React.FC = () => {
         'h': data.height,
         'w': data.width,
         'LD': data.LD,
+        'actOpns': data.actOpns,
         'sprk': data.sprk === 'Yes',
         'group': data.group,
       };
       await axios.post('http://localhost:3000/calculate', reqbody).then((response) => {
           const res = response.data;
+          console.log(res);
           data.unprotectedOpenings = res.unprotectedOpenings;
           data.frr = res.frr;
           data.construction = res.construction;

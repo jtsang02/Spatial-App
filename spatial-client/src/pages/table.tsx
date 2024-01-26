@@ -3,8 +3,10 @@ import "ag-grid-community/styles/ag-grid.css"; // Core CSS
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Theme
 import "ag-grid-community/styles/ag-theme-balham.css"; // Secondary Theme
 import RowData from '../models/rowData';
-import { ColDef, CellValueChangedEvent, RowValueChangedEvent } from 'ag-grid-community';
+import { ColDef, RowValueChangedEvent } from 'ag-grid-community';
 import { useState, useEffect, useMemo, useCallback } from 'react';
+import valueFormatterPercentage from '../utils/formatPercent';
+import axios, { AxiosError } from 'axios';
 
 const BLANKROWS = 22;
 const defaultBlankRows: RowData[] = Array.from({ length: BLANKROWS }, (_, index) => ({
@@ -12,17 +14,8 @@ const defaultBlankRows: RowData[] = Array.from({ length: BLANKROWS }, (_, index)
   compartment: `Compartment ${index + 1}`,
 }));
 
-
-const valueFormatterPercentage = (param: { value: number; }) => {
-  if (param.value) {
-    return param.value.toLocaleString() + '%';
-  } else {
-    return '';
-  }
-};
-
 const Table: React.FC = () => {
-  
+
   const [rowData, setRowData] = useState<RowData[]>(defaultBlankRows);
 
   // Column Definitions: Defines & controls grid columns.
@@ -33,6 +26,9 @@ const Table: React.FC = () => {
       rowDrag: true,
       editable: true,
       width: 200,
+      onCellValueChanged(event) {
+        console.log('onCellValueChanged: ' + event.data.compartment);
+      },
     },
     {
       field: 'face',
@@ -49,8 +45,22 @@ const Table: React.FC = () => {
       width: 80,
     },
     {
-      field: 'height (m)',
-      colId: 'h',
+      field: 'group',
+      filter: true,
+      editable: true,
+      cellEditorSelector: () => {
+        return {
+          component: 'agSelectCellEditor',
+          params: {
+            values: ['', 'A', 'B', 'C', 'D', 'E', 'F-1', 'F-2', 'F-3'],
+          },
+        };
+      },
+      width: 100,
+    },
+    {
+      field: 'height',
+      headerName: 'Height (m)',
       editable: true,
       cellEditor: 'agNumberCellEditor',
       cellEditorParams: {
@@ -58,8 +68,8 @@ const Table: React.FC = () => {
       },
     },
     {
-      field: 'width (m)',
-      colId: 'w',
+      field: 'width',
+      headerName: 'Width (m)',
       editable: true,
       cellEditor: 'agNumberCellEditor',
       cellEditorParams: {
@@ -67,8 +77,8 @@ const Table: React.FC = () => {
       },
     },
     {
-      field: 'LD (m)',
-      colId: 'LD',
+      field: 'LD',
+      headerName: 'LD (m)',
       editable: true,
       cellEditor: 'agNumberCellEditor',
       cellEditorParams: {
@@ -76,40 +86,42 @@ const Table: React.FC = () => {
       },
     },
     {
-      field: 'area (m²)',
-      colId: 'area',
+      field: 'area',
+      headerName: 'Area (m²)',
       valueGetter: (params) => {
-        if (isNaN(params.data.height) || isNaN(params.data.width)) {
+        if (!params.data.height || !params.data.width) {
           return null;
         } else {
-          return params.data.height * params.data.width;
+          return (params.data.height * params.data.width).toFixed(2);
         }
       },
     },
     {
       field: 'ratio',
       valueGetter: (params) => {
-        if (isNaN(params.data.height) || isNaN(params.data.width)) {
+        if (!params.data.height || !params.data.width) {
           return null;
         } else {
-          return Math.max(params.data.height, params.data.width) / Math.min(params.data.height, params.data.width);
+          return (Math.max(params.data.height, params.data.width) /
+            Math.min(params.data.height, params.data.width)).toFixed(1);
         }
       },
       editable: false,
       width: 75,
     },
     {
-      field: 'unprotected openings (m²)',
-      colId: 'unprotectedOpenings',
+      field: 'actOpns',
+      headerName: 'Openings (m²)',
       editable: true,
-      width: 210,
+      width: 125,
       cellEditor: 'agNumberCellEditor',
       cellEditorParams: {
         min: 0,
       },
     },
     {
-      field: 'sprinklered',
+      field: 'sprk',
+      headerName: 'Sprinklered',
       cellEditorSelector: () => {
         return {
           component: 'agSelectCellEditor',
@@ -121,16 +133,28 @@ const Table: React.FC = () => {
       editable: true,
     },
     {
-      field: 'actual Openings',
-      colId: 'actOpns',
+      field: 'actualOpenings',
+      headerName: 'Actual Openings',
       valueFormatter: valueFormatterPercentage,
+      valueGetter: (params) => {
+        if (!params.data.actOpns || !params.data.area) {
+          return null;
+        } else {
+          return (params.data.actOpns / params.data.area * 100).toFixed(2);
+        }
+      },
       width: 150,
     },
     {
-      field: 'Openings Permitted',
-      colId: 'opnsPermitted',
+      field: 'unprotectedOpenings',
+      headerName: 'Openings Permitted',
       valueFormatter: valueFormatterPercentage,
       width: 175,
+    },
+    {
+      field: 'frr',
+      headerName: 'Rating',
+      width: 80,
     },
     {
       field: 'construction',
@@ -144,9 +168,7 @@ const Table: React.FC = () => {
 
   // Fetch data & update rowData state
   useEffect(() => {
-    // fetch('ht//www.ag-grid.com/example-assets/space-mission-data.json') // Fetch data from server
-    //   .then((result) => result.json()) // Convert to JSON
-    //   .then((rowData) => setRowData(rowData)); // Update state of `rowData`tps:
+
   }, []);
 
   // Apply settings across all columns
@@ -157,17 +179,41 @@ const Table: React.FC = () => {
     };
   }, []);
 
-  const onCellValueChanged = useCallback((e: CellValueChangedEvent) => {
-    // Update rowData state with new data
-    console.log('onCellValueChanged: ' + e.colDef.field + ' = ' + e.newValue
-    );
-  }, []);
-
-  const onRowValueChanged = useCallback((e: RowValueChangedEvent) => {
+  const handleRowValueChanged = useCallback(async (e: RowValueChangedEvent) => {
     const data = e.data;
-    // Update rowData state with new data
-    console.log('onRowValueChanged: ' + JSON.stringify(data));
-  }, []);
+    // check if required parameters for calculation are present
+    // required: height, width, LD, sprk, group
+    if (data.height && data.width && data.LD && data.sprk && data.group) {
+      const reqbody = {
+        'h': data.height,
+        'w': data.width,
+        'LD': data.LD,
+        'sprk': data.sprk === 'Yes',
+        'group': data.group,
+      };
+      await axios.post('http://localhost:3000/calculate', reqbody).then((response) => {
+          const res = response.data;
+          data.unprotectedOpenings = res.unprotectedOpenings;
+          data.frr = res.frr;
+          data.construction = res.construction;
+          data.cladding = res.cladding;
+        }).catch((error: Error | AxiosError) => {
+          if (axios.isAxiosError(error) && error.response?.status === 400) {
+            alert(error.response.data.errors[0]);
+          } else {
+            alert('An unknown error occurred');
+          }
+        });
+    }
+    // update rowData state with new data
+    setRowData(rowData.map((row) => {
+      if (row.id === data.id) {
+        return data;
+      } else {
+        return row;
+      }
+    }));
+  }, [rowData]);
 
   // Container: Defines the grid's theme & dimensions.
   return (
@@ -182,8 +228,8 @@ const Table: React.FC = () => {
         rowDragManaged={true}
         pagination={false}
         editType='fullRow'
-        onCellValueChanged={onCellValueChanged}
-        onRowValueChanged={onRowValueChanged}
+        onRowValueChanged={handleRowValueChanged}
+
       />
     </div>
   );

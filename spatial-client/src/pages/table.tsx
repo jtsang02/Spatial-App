@@ -131,7 +131,7 @@ const Table: React.FC = () => {
     },
     {
       field: 'actualOpenings',
-      headerName: 'Actual Openings',
+      headerName: 'UPO-A (%)',
       valueFormatter: valueFormatterPercentage,
       valueGetter: (params) => {
         if (!params.data.actOpns || !params.data.height || !params.data.width) {
@@ -140,18 +140,15 @@ const Table: React.FC = () => {
           return (params.data.actOpns / (params.data.height * params.data.width) * 100).toFixed(2);
         }
       },
-      width: 200,
     },
     {
       field: 'unprotectedOpenings',
-      headerName: 'Openings Permitted',
+      headerName: 'UPO-P (%)',
       valueFormatter: valueFormatterPercentage,
-      width: 175,
     },
     {
       field: 'frr',
       headerName: 'Rating',
-      width: 80,
     },
     {
       field: 'construction',

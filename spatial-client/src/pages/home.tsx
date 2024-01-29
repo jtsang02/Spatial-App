@@ -10,10 +10,10 @@ const Home: React.FC = () => {
       <div className='m-auto text-center'>
         <div className='inline-grid grid-cols-2'>
           <a href='https://jtsang02.github.io/spatial-calc-js/calculator.html'>
-            <img src={calcLogo} className="logo calculator" />
+            <img src={calcLogo} className="logo calculator" alt='calculator' />
           </a>
           <Link to="/table">
-            <img src={tableLogo} className="logo table" />
+            <img src={tableLogo} className="logo table" alt='spreadsheet'/>
           </Link>
         </div>
         <h1 className='text-4xl font-bold p-5'>Spatial Calculator V2.0</h1>

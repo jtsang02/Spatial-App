@@ -49,7 +49,7 @@ const Table: React.FC = () => {
         return {
           component: 'agSelectCellEditor',
           params: {
-            values: ['', 'A', 'B', 'C', 'D', 'E', 'F-1', 'F-2', 'F-3'],
+            values: ['A', 'B', 'C', 'D', 'E', 'F-1', 'F-2', 'F-3'],
           },
         };
       },
@@ -123,7 +123,7 @@ const Table: React.FC = () => {
         return {
           component: 'agSelectCellEditor',
           params: {
-            values: ['', 'Yes', 'No'],
+            values: ['Yes', 'No'],
           },
         };
       },

@@ -168,7 +168,6 @@ const Table: React.FC = () => {
 
   const handleRowValueChanged = useCallback(async (e: RowValueChangedEvent) => {
     const data = e.data;
-    console.log(data);
     // check if required parameters for calculation are present
     // required: height, width, LD, sprk, group
     if (data.height !== null && data.width!== null && data.LD !== null 
@@ -183,7 +182,6 @@ const Table: React.FC = () => {
       };
       await axios.post('http://localhost:3000/calculate', reqbody).then((response) => {
           const res = response.data;
-          console.log(res);
           data.actualOpenings = res.actualOpenings;
           data.unprotectedOpenings = res.unprotectedOpenings;
           data.frr = res.frr;
@@ -191,6 +189,12 @@ const Table: React.FC = () => {
           data.cladding = res.cladding;
         }).catch((error: Error | AxiosError) => {
           if (axios.isAxiosError(error) && error.response?.status === 400) {
+            // reset returned values to null
+            data.actualOpenings = null;
+            data.unprotectedOpenings = null;
+            data.frr = null;
+            data.construction = null;
+            data.cladding = null;
             alert(error.response.data.errors[0]);
           } else {
             alert('An unknown error occurred');

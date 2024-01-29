@@ -133,13 +133,6 @@ const Table: React.FC = () => {
       field: 'actualOpenings',
       headerName: 'UPO-A (%)',
       valueFormatter: valueFormatterPercentage,
-      valueGetter: (params) => {
-        if (!params.data.actOpns || !params.data.height || !params.data.width) {
-          return null;
-        } else {
-          return (params.data.actOpns / (params.data.height * params.data.width) * 100).toFixed(2);
-        }
-      },
     },
     {
       field: 'unprotectedOpenings',
@@ -175,20 +168,23 @@ const Table: React.FC = () => {
 
   const handleRowValueChanged = useCallback(async (e: RowValueChangedEvent) => {
     const data = e.data;
+    console.log(data);
     // check if required parameters for calculation are present
     // required: height, width, LD, sprk, group
-    if (data.height && data.width && data.LD && data.sprk && data.group) {
+    if (data.height !== null && data.width!== null && data.LD !== null 
+        && data.sprk !== null && data.group !== null) {
       const reqbody = {
         'h': data.height,
         'w': data.width,
         'LD': data.LD,
-        'actOpns': data.actOpns,
+        'actOpns': data.actOpns === null ? 0 : data.actOpns,
         'sprk': data.sprk === 'Yes',
         'group': data.group,
       };
       await axios.post('http://localhost:3000/calculate', reqbody).then((response) => {
           const res = response.data;
           console.log(res);
+          data.actualOpenings = res.actualOpenings;
           data.unprotectedOpenings = res.unprotectedOpenings;
           data.frr = res.frr;
           data.construction = res.construction;

@@ -19,7 +19,7 @@ A step by step series of examples that tell you how to get a development environ
 
 1. Clone the repo
 
-```git clone https://github.com/your_username_/Project-Name.git```
+```git clone https://github.com/jtsang02/Spatial-App.git```
 
 2. Install NPM packages
 

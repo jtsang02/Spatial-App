@@ -1,6 +1,15 @@
 # Spatial Calculator API
 
-This is a simple project that includes a server and an API.
+The Spatial Web App offers comprehensive CRUD functionality, empowering users to effortlessly manage compartment calculations within a browser-based platform. Developed using the MERN stack (MongoDB, Express, React, Node.js), the app prioritizes a web-first approach and integrates responsive design to cater to various screen sizes, including mobile devices.
+
+Folders
+=================
+
+The project is divided into three main folders:
+
+- [Frontend](spatial-client/README.md)
+- [Backend](api)
+- [Testing](test/README.md)
 
 ## Getting Started
 
@@ -35,7 +44,7 @@ This runs the app in the development mode. Open [http://localhost:9000](http://l
 
 ## Using the API
 
-The API is hosted on an AWS EC2 instance. The base URL is:
+The API is (or occasionally will be) hosted on an AWS EC2 instance. The base URL is:
     
 ```http://ec2-3-134-88-136.us-east-2.compute.amazonaws.com:3000/```
 

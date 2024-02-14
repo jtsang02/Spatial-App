@@ -182,6 +182,7 @@ const Table: React.FC = () => {
       };
       await axios.post('http://localhost:3000/calculate', reqbody).then((response) => {
           const res = response.data;
+          console.log(res);
           data.actualOpenings = res.actualOpenings;
           data.unprotectedOpenings = res.unprotectedOpenings;
           data.frr = res.frr;

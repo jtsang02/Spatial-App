@@ -7,9 +7,9 @@ Folders
 
 The project is divided into three main folders:
 
-- [Frontend](spatial-client/README.md)
+- [Frontend](spatial-client)
 - [Backend](api)
-- [Testing](test/README.md)
+- [Testing](test)
 
 ## Getting Started
 
@@ -34,20 +34,32 @@ A step by step series of examples that tell you how to get a development environ
 
 ```npm install```
 
-## Running the server
-
-In the project directory, you can run:
+3. Start the server
 
 ```npm start```
 
-This runs the app in the development mode. Open [http://localhost:9000](http://localhost:9000) to view it in the browser.
+4. Start the frontend
 
-## Using the API
+```bash
+cd spatial-client
+npm start
+```
 
-The API is (or occasionally will be) hosted on an AWS EC2 instance. The base URL is:
-    
-```http://ec2-3-134-88-136.us-east-2.compute.amazonaws.com:3000/```
+6. Open the browser and navigate to `http://localhost:5173/`
 
-Here are some example API calls:
+7. Optional: Run the tests
 
-- POST a calculation: `POST /calculate`
+```bash
+cd test
+python -m pytest or python -m pytest -vv
+```
+
+## Technologies Used
+
+The tools and frameworks used in this project include:
+
+- [React](https://reactjs.org/)
+- [Express](https://expressjs.com/)
+- [mongoDB](https://www.mongodb.com/)
+- [Node.js](https://nodejs.org/en/)
+

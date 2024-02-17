@@ -1,7 +1,7 @@
 import requests
 
-ENDPOINT = "http://localhost:9000"
-ENDPOINT_CALCULATE = "http://localhost:9000/calculate"
+ENDPOINT = "http://localhost:3000"
+ENDPOINT_CALCULATE = "http://localhost:3000/calculate"
 
 # test that the endpoint is up and running
 def test_can_call_endpoint():

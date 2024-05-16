@@ -22,10 +22,9 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-const main = require('./routes/main');
+const main = require('./controllers/main');
+const compartment = require('./controllers/compartment');
 app.use('/', main);
-
-const compartment = require('./routes/compartment');
 app.use('/calculate', compartment);  
 
 // Start the server

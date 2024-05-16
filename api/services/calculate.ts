@@ -1,13 +1,9 @@
-import Compartment from "../calculation/Compartment";
-import roundNum from "../calculation/roundNum";
-import { Request, Response } from "express"; // Import the express types
-import validateInputParams from "../middleware/validateInput";
+import Compartment from "./calculation/Compartment";
+import roundNum from "./calculation/roundNum";
+import { Request, Response } from "express"; 
 
-const express = require('express');
-const router = express.Router();
-
-// post request to calculate the compartment
-router.post('/', validateInputParams, async(req: Request, res: Response) => {
+// logic to calculate the compartment
+const calculate = async (req: Request, res: Response) => {
     try {
         // destructuring the request body
         const { h, w, LD, actOpns, sprk, group } = req.body;
@@ -25,6 +21,6 @@ router.post('/', validateInputParams, async(req: Request, res: Response) => {
     } catch (error) {
         console.error(error);
     }
-});
+}
 
-module.exports = router;
+export default calculate;

@@ -1,0 +1,17 @@
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: dist  # Ensure this points to the correct directory
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*  # Cache node_modules for faster builds
+  environmentVariables:
+    VITE_API_URL: 'https://0ug7u2zr65.execute-api.us-east-2.amazonaws.com/dev'  # Set the environment variable

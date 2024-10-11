@@ -1,0 +1,44 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-spatialappfrontend-dev-b6c47-authRole",
+      "UnauthRoleArn": "arn:aws:iam::515966521808:role/amplify-spatialappfrontend-dev-b6c47-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::515966521808:role/amplify-spatialappfrontend-dev-b6c47-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-spatialappfrontend-dev-b6c47-deployment",
+      "UnauthRoleName": "amplify-spatialappfrontend-dev-b6c47-unauthRole",
+      "StackName": "amplify-spatialappfrontend-dev-b6c47",
+      "StackId": "arn:aws:cloudformation:us-east-2:515966521808:stack/amplify-spatialappfrontend-dev-b6c47/9de70d90-87aa-11ef-8a1a-06a04dd4e623",
+      "AmplifyAppId": "djnlz52drdkzx"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "djnlz52drdkzx",
+          "type": "manual"
+        }
+      }
+    }
+  },
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-spatialappfrontend-prod-57f22-authRole",
+      "UnauthRoleArn": "arn:aws:iam::515966521808:role/amplify-spatialappfrontend-prod-57f22-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::515966521808:role/amplify-spatialappfrontend-prod-57f22-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-spatialappfrontend-prod-57f22-deployment",
+      "UnauthRoleName": "amplify-spatialappfrontend-prod-57f22-unauthRole",
+      "StackName": "amplify-spatialappfrontend-prod-57f22",
+      "StackId": "arn:aws:cloudformation:us-east-2:515966521808:stack/amplify-spatialappfrontend-prod-57f22/fcdf3d90-87af-11ef-9b38-069f32e9a9bf",
+      "AmplifyAppId": "djnlz52drdkzx"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "djnlz52drdkzx",
+          "type": "manual"
+        }
+      }
+    }
+  }
+}

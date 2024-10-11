@@ -9,6 +9,10 @@ import axios, { AxiosError } from 'axios';
 import { columnDefs } from './columnDefinitions';
 
 const BLANKROWS = 22;
+
+const apiUrl = import.meta.env.VITE_API_URL;
+
+
 const defaultBlankRows: RowData[] = Array.from({ length: BLANKROWS }, (_, index) => ({
   id: `cmpt-${index + 1}`,
   compartment: `Compartment ${index + 1}`,
@@ -45,7 +49,7 @@ export const Table: React.FC = () => {
         'sprk': data.sprk === 'Yes',
         'group': data.group,
       };
-      await axios.post('http://localhost:3000/calculate', reqbody).then((response) => {
+      axios.post(`${apiUrl}/calculate`, reqbody).then((response) => {
           const res = response.data;
           console.log(res);
           data.actualOpenings = res.actualOpenings;

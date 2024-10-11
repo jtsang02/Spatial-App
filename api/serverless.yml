@@ -1,0 +1,28 @@
+service: express-spatial-app
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-2
+  profile: default
+
+functions:
+  app:
+    handler: handler.handler
+    events:
+      - http:
+          path: /calculate  # This is the POST route you want to handle
+          method: post  # Specify POST as the method
+      - http:
+          path: /{proxy+}  # This handles other dynamic paths like /calculate/anything
+          method: any  # Allow any method for this catch-all proxy route
+
+plugins:
+  - serverless-offline
+
+package:
+  exclude:
+    - node_modules/**
+    - .gitignore
+    - .git/**
+    - .vscode/**

@@ -7,4 +7,4 @@ const router = express.Router();
 // post request to calculate the compartment
 router.post('/', validateInputParams, calculate);
 
-module.exports = router;
+module.exports = router;    // comment out for serverless deployment

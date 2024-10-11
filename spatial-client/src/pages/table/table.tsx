@@ -11,7 +11,7 @@ import { columnDefs } from './columnDefinitions';
 const BLANKROWS = 22;
 
 const apiUrl = import.meta.env.VITE_API_URL;
-
+console.log(apiUrl);
 
 const defaultBlankRows: RowData[] = Array.from({ length: BLANKROWS }, (_, index) => ({
   id: `cmpt-${index + 1}`,
@@ -49,7 +49,7 @@ export const Table: React.FC = () => {
         'sprk': data.sprk === 'Yes',
         'group': data.group,
       };
-      axios.post(`${apiUrl}/calculate`, reqbody).then((response) => {
+      axios.post(`${apiUrl}`, reqbody).then((response) => {
           const res = response.data;
           console.log(res);
           data.actualOpenings = res.actualOpenings;
